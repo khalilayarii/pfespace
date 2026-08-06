@@ -1,0 +1,369 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.admin-layout {
+  display: flex; 
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+/* ================================
+   SIDEBAR
+================================= */
+.sidebar {
+  width: 260px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.sidebar-header {
+  padding: 24px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.admin-info {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-avatar {
+  width: 40px;
+  height: 40px;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.admin-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.admin-badge {
+  font-size: 10px;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.menu-section {
+  padding: 24px 12px;
+  flex: 1;
+}
+
+.menu-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  padding: 0 12px;
+  margin-bottom: 12px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.menu-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.menu-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.sidebar-footer {
+  padding: 24px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.logout:hover {
+  color: #dc2626;
+}
+
+/* ================================
+   CONTENU PRINCIPAL & TOOLBAR
+================================= */
+.main-content { 
+  margin-left: 260px; 
+  flex: 1; 
+  padding: 24px; 
+  transition: margin-right 0.3s ease; 
+  overflow: hidden; 
+}
+
+.main-content.with-panel { 
+  margin-right: 360px; 
+}
+
+.toolbar {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 16px; 
+  padding: 12px 0;
+}
+
+.toolbar-left { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+}
+
+.btn-today {
+  background: white; 
+  border: 1px solid #e2e8f0;
+  color: #1e293b; 
+  padding: 8px 16px; 
+  border-radius: 8px;
+  font-size: 13px; 
+  font-weight: 600; 
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-today:hover { background: #f1f5f9; }
+
+.nav-btn {
+  background: white; 
+  border: 1px solid #e2e8f0;
+  width: 32px; 
+  height: 32px; 
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all 0.2s;
+}
+.nav-btn:hover { background: #f1f5f9; color: #0f172a; }
+.btn-icon { width: 16px; height: 16px; }
+
+.titre-nav { font-size: 18px; font-weight: 700; color: #1e293b; margin-left: 8px; }
+
+.vue-switcher { display: flex; background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+.vue-switcher button { padding: 8px 16px; border: none; background: transparent; font-size: 13px; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.2s; }
+.vue-switcher button.active { background: #2563eb; color: white; }
+.vue-switcher button:hover:not(.active) { background: #f1f5f9; }
+
+/* ================================
+   VUE MOIS, SEMAINE, JOUR
+================================= */
+.cal-mois { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
+.cal-weekdays { display: grid; grid-template-columns: repeat(7,1fr); background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
+.cal-weekdays div { text-align: center; padding: 10px; font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 1px; }
+
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); }
+.cal-day { min-height: 110px; padding: 8px; border-right: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; }
+.cal-day:hover:not(.empty) { background: #f8fafc; }
+.cal-day.empty { cursor: default; background: #fafafa; }
+.cal-day.today { background: #eff6ff; }
+.cal-day.selected { background: #dbeafe; }
+
+.day-num { font-size: 13px; font-weight: 600; color: #374151; display: block; margin-bottom: 4px; }
+.cal-day.today .day-num { background: #2563eb; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+.event-chips { display: flex; flex-direction: column; gap: 2px; }
+.event-chip { background: #eff6ff; color: #2563eb; font-size: 11px; padding: 2px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 2px solid #2563eb; }
+.more-chip { color: #64748b; font-size: 11px; padding: 2px 4px; font-weight: 500; }
+
+.cal-semaine { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: auto; max-height: calc(100vh - 180px); }
+.semaine-header { display: grid; grid-template-columns: 60px repeat(7, 1fr); position: sticky; top: 0; background: white; border-bottom: 2px solid #e2e8f0; z-index: 5; }
+.heure-col { border-right: 1px solid #e2e8f0; }
+.jour-header { text-align: center; padding: 10px 4px; border-right: 1px solid #e2e8f0; cursor: pointer; }
+.jour-header.today { background: #eff6ff; }
+.jour-nom { font-size: 11px; font-weight: 700; color: #64748b; }
+.jour-num { font-size: 20px; font-weight: 700; color: #374151; margin-top: 2px; }
+.today-num { background: #2563eb; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 2px auto 0; font-size: 16px; }
+
+.semaine-body { display: grid; grid-template-columns: 60px repeat(7, 1fr); }
+.heure-row { display: contents; }
+.heure-label { font-size: 11px; color: #94a3b8; padding: 8px 4px; text-align: right; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #f1f5f9; }
+.jour-cell { min-height: 60px; border-right: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; padding: 2px; cursor: pointer; }
+.jour-cell.today-col { background: #fefce8; }
+
+.cal-jour { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: auto; max-height: calc(100vh - 180px); }
+.jour-body { display: grid; grid-template-columns: 60px 1fr; }
+.jour-cell-full { min-height: 60px; border-bottom: 1px solid #f1f5f9; padding: 4px; cursor: pointer; }
+
+.event-block { background: #eff6ff; color: #2563eb; border-left: 3px solid #2563eb; border-radius: 4px; padding: 6px; font-size: 11px; margin-bottom: 2px; display: flex; flex-direction: column; }
+.event-title { font-weight: 600; }
+.event-time { color: #64748b; margin-top: 2px; }
+
+/* ================================
+   PANEL DÉTAILS & FORMULAIRE
+================================= */
+.detail-panel { position: fixed; right: -360px; top: 0; bottom: 0; width: 360px; background: white; box-shadow: -4px 0 20px rgba(0,0,0,0.05); transition: right 0.3s ease; z-index: 100; display: flex; flex-direction: column; border-left: 1px solid #e2e8f0; }
+.detail-panel.open { right: 0; }
+
+.panel-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #f1f5f9; }
+.panel-header h3 { font-size: 16px; font-weight: 700; color: #0f172a; }
+.close-btn { background: none; border: none; color: #94a3b8; width: 24px; height: 24px; cursor: pointer; }
+.close-btn:hover { color: #0f172a; }
+
+.panel-body { flex: 1; overflow-y: auto; padding: 20px; }
+
+.btn-nouvelle-resa { width: 100%; padding: 12px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+.btn-nouvelle-resa:hover { background: #1d4ed8; }
+
+.form-nouvelle-resa { background: #f8fafc; border-radius: 12px; padding: 16px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+.form-nouvelle-resa h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
+
+.form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 0.5px; }
+.form-group input, .form-group select { padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; color: #0f172a; background: white; outline: none; }
+.form-group input:focus, .form-group select:focus { border-color: #2563eb; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.form-actions { display: flex; gap: 12px; margin-top: 16px; }
+.btn-annuler { flex: 1; padding: 10px; background: #f1f5f9; color: #475569; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.btn-confirmer { flex: 1; padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.btn-confirmer:disabled { background: #a7f3d0; cursor: not-allowed; }
+
+.empty-panel { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 14px; }
+
+/* ================================
+   CARTES MINI (Comme réservations)
+================================= */
+.reservation-card-mini {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-room {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.badge-success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* ALERTS */
+.alert { padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 16px; }
+.alert-success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }

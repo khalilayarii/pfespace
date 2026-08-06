@@ -1,0 +1,66 @@
+<div class="checkin-page">
+
+  <!-- HEADER AVEC LOGOS -->
+  <div class="checkin-header">
+    <div class="header-band"></div>
+    <div class="header-logos">
+      <img src="assets/images/medianet-logo.png" alt="Medianet" class="logo-medianet" />
+      <div class="logo-separator"></div>
+      <img src="assets/images/startupvillage-logo.png" alt="Startup Village" class="logo-sv" />
+    </div>
+  </div>
+
+  <div class="checkin-content">
+
+    <!-- ÉTAT : CHARGEMENT -->
+    <div *ngIf="loading" class="checkin-card etat-loading">
+      <div class="spinner"></div>
+      <p class="loading-text">Validation en cours...</p>
+    </div>
+
+    <!-- ÉTAT : SUCCÈS -->
+    <div *ngIf="!loading && succes" class="checkin-card etat-succes">
+      <div class="icon-circle icon-succes">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h1>Check-in confirmé</h1>
+      <p class="sous-titre">Votre présence a bien été enregistrée</p>
+
+      <div class="reservation-summary">
+        <div class="summary-row">
+          <span class="summary-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </span>
+          <span>{{ reservation?.salle?.nom }}</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <span>{{ reservation?.heureDebut }} — {{ reservation?.heureFin }}</span>
+        </div>
+      </div>
+
+      <p class="message-final">Bonne session !</p>
+    </div>
+
+    <!-- ÉTAT : ERREUR -->
+    <div *ngIf="!loading && !succes" class="checkin-card etat-erreur">
+      <div class="icon-circle icon-erreur">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+      <h1>Check-in impossible</h1>
+      <p class="message-erreur">{{ messageErreur }}</p>
+    </div>
+
+  </div>
+
+  <div class="checkin-footer">
+    Medianet — Startup Village
+  </div>
+
+</div>

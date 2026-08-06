@@ -1,0 +1,101 @@
+.avis-container {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #333;
+}
+
+.score-global {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.score-global .note {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.score-global .etoiles span {
+  color: #444;
+  font-size: 20px;
+}
+
+.score-global .etoiles span.remplie {
+  color: #f9b900;
+}
+
+.score-global .nb-avis {
+  color: #999;
+  font-size: 13px;
+}
+
+.liste-avis {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.avis-item {
+  border-top: 1px solid #333;
+  padding: 12px 0;
+}
+
+.avis-item:first-child {
+  border-top: none;
+}
+
+.avis-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: #f9b900;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.avis-auteur-info strong {
+  color: #fff;
+  font-size: 14px;
+  display: block;
+}
+
+.etoiles-petit span {
+  color: #444;
+  font-size: 13px;
+}
+
+.etoiles-petit span.remplie {
+  color: #f9b900;
+}
+
+.date {
+  margin-left: auto;
+  color: #777;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.commentaire {
+  color: #ccc;
+  margin: 6px 0 0 42px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.aucun-avis {
+  color: #777;
+  font-size: 14px;
+  text-align: center;
+  padding: 12px 0;
+}

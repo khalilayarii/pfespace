@@ -1,0 +1,164 @@
+<div class="page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <div class="logo-text">
+        <span class="logo-main">MEDIA<span>NET</span></span>
+        <span class="logo-sub">Startup Village</span>
+      </div>
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Rechercher un espace, événement..."/>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#espaces" class="nav-link">Espaces</a>
+      <a href="#galerie" class="nav-link">Galerie</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <button class="btn-login" (click)="goToLogin()">Se connecter / S'inscrire</button>
+      <button class="btn-reserver" (click)="goToReserver()">Réserver</button>
+    </div>
+  </nav>
+
+  <!-- HERO SLIDER -->
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide"
+           *ngFor="let img of heroImages; let i = index"
+           [class.active]="i === currentSlide"
+           [style.background-image]="'url(' + img + ')'">
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Coworking & Espaces de travail</div>
+      <h1>Votre espace de travail<br/><span>inspirant à Tunis</span></h1>
+      <p>Réservez salles de réunion, espaces créatifs et bureaux privés<br/>au cœur du Startup Village MediaNet</p>
+      <div class="hero-buttons">
+        <button class="btn-hero-primary" (click)="goToReserver()">
+          Réserver maintenant
+        </button>
+        <button class="btn-hero-secondary" (click)="goToLogin()">
+          Se connecter
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Espaces</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">40+</span>
+          <span class="stat-label">Entreprises</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">1000+</span>
+          <span class="stat-label">Réservations</span>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots">
+      <span *ngFor="let img of heroImages; let i = index"
+            [class.active]="i === currentSlide"
+            (click)="currentSlide = i">
+      </span>
+    </div>
+  </section>
+
+  <!-- ESPACES -->
+  <section class="espaces" id="espaces">
+    <div class="section-header">
+      <span class="section-tag">NOS ESPACES</span>
+      <h2>Des espaces pensés pour <span>votre succès</span></h2>
+      <p>Choisissez l'espace qui correspond à vos besoins</p>
+    </div>
+    <div class="espaces-grid">
+      <div class="espace-card" *ngFor="let e of espacesImages">
+        <div class="espace-img">
+          <img [src]="e.img" [alt]="e.titre"/>
+          <div class="espace-overlay">
+            <button class="btn-voir" (click)="goToReserver()">Réserver</button>
+          </div>
+        </div>
+        <div class="espace-info">
+          <h3>{{ e.titre }}</h3>
+          <p>{{ e.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="galerie" id="galerie">
+    <div class="section-header">
+      <span class="section-tag">GALERIE</span>
+      <h2>Découvrez notre <span>univers</span></h2>
+    </div>
+    <div class="galerie-grid">
+      <div class="galerie-item large">
+        <img src="assets/images/cothinking.jpg" alt="Cothinking Space"/>
+        <div class="galerie-overlay"><span>Cothinking Space</span></div>
+      </div>
+      <div class="galerie-item">
+        <img src="assets/images/zinaa.jpg" alt="Zina Space"/>
+        <div class="galerie-overlay"><span>Espace Zina</span></div>
+      </div>
+      <div class="galerie-item">
+        <img src="assets/images/polyy.jpg" alt="Polyvalent"/>
+        <div class="galerie-overlay"><span>Salle Polyvalente</span></div>
+      </div>
+      <div class="galerie-item">
+        <img src="assets/images/bureau4.jpg" alt="Bureau"/>
+        <div class="galerie-overlay"><span>Bureau Privé</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-content">
+      <span class="section-tag light">COMMENCER</span>
+      <h2>Prêt à rejoindre l'écosystème ?</h2>
+      <p>Créez votre compte et réservez votre espace en quelques clics</p>
+      <div class="cta-buttons">
+        <button class="btn-cta-primary" (click)="goToRegister()">
+          Créer un compte gratuit
+        </button>
+        <button class="btn-cta-secondary" (click)="goToLogin()">
+          Se connecter
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">MEDIA<span>NET</span></div>
+        <p>Startup Village — Votre espace de coworking à Tunis</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="#espaces">Nos Espaces</a>
+        <a href="#galerie">Galerie</a>
+        <a (click)="goToLogin()">Se connecter</a>
+        <a (click)="goToRegister()">S'inscrire</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Tunis, Tunisie</p>
+        <p>+216 XX XXX XXX</p>
+        <p>contact@medianet.tn</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MediaNet Startup Village. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+</div>

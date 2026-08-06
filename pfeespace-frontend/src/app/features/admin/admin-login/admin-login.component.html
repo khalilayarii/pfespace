@@ -1,0 +1,70 @@
+<div class="page-wrapper">
+
+  <div class="top-banner"
+       [style.backgroundImage]="'url(assets/images/medianet-bg.jpg)'">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <img src="assets/images/medianet-logo.png" alt="Medianet" class="logo-img"/>
+      <p class="welcome-text">👋 Bienvenue, Administrateur !</p>
+    </div>
+  </div>
+
+  <div class="card-wrapper">
+    <div class="form-card">
+
+      <h2>Connexion Admin</h2>
+      <p class="subtitle">Veuillez vous connecter au tableau de bord</p>
+
+      <div *ngIf="error" class="alert-error">⚠️ {{ error }}</div>
+
+      <form (ngSubmit)="onAdminLogin()">
+
+        <div class="field">
+          <label>Email / Nom d'utilisateur *</label>
+          <input type="email"
+                 [(ngModel)]="email"
+                 name="email"
+                 placeholder="admin@gmail.com"
+                 required/>
+        </div>
+
+        <div class="field">
+          <label>Mot de passe *</label>
+          <div class="input-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'"
+                   [(ngModel)]="password"
+                   name="password"
+                   placeholder="••••••••"
+                   required/>
+            <span class="eye" (click)="togglePassword()">
+              {{ showPassword ? '🙈' : '👁️' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="options-row">
+          <label class="remember">
+            <input type="checkbox"/> Se souvenir de moi
+          </label>
+          <a routerLink="/forgot-password" class="forgot">Mot de passe oublié ?</a>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="loading">
+          {{ loading ? 'Connexion...' : 'Login' }}
+        </button>
+
+        <div class="divider">
+          <span>Pas votre espace ?</span>
+        </div>
+
+        <button class="btn-secondary" type="button" routerLink="/login">
+          ← Espace client
+        </button>
+
+      </form>
+
+      <p class="footer-text">© 2025 MediaNet · Startup Village</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,32 @@
+<div class="avis-container" *ngIf="nombreAvis > 0">
+
+  <div class="score-global">
+    <span class="note">{{ scoreMoyen | number:'1.1-1' }}</span>
+    <div class="etoiles">
+      <span *ngFor="let i of [1,2,3,4,5]"
+            [class.remplie]="i <= scoreMoyen">★</span>
+    </div>
+    <span class="nb-avis">{{ nombreAvis }} avis</span>
+  </div>
+
+  <div class="liste-avis">
+    <div class="avis-item" *ngFor="let a of avis">
+      <div class="avis-header">
+        <div class="avatar">{{ a.auteur.charAt(0) }}</div>
+        <div class="avis-auteur-info">
+          <strong>{{ a.auteur }}</strong>
+          <div class="etoiles-petit">
+            <span *ngFor="let i of [1,2,3,4,5]" [class.remplie]="i <= a.note">★</span>
+          </div>
+        </div>
+        <span class="date">{{ a.date | date:'d MMM y' }}</span>
+      </div>
+      <p class="commentaire">{{ a.commentaire }}</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="avis-container" *ngIf="nombreAvis === 0 && chargementTermine">
+  <p class="aucun-avis">Aucun avis pour le moment.</p>
+</div>

@@ -1,0 +1,89 @@
+<div class="evaluation-container">
+
+  <!-- État : formulaire -->
+  <div *ngIf="etat === 'formulaire' || etat === 'chargement'" class="evaluation-card">
+
+    <div class="header">
+      <h2>Votre avis compte</h2>
+      <p>Merci de prendre une minute pour évaluer votre expérience</p>
+    </div>
+
+    <div class="critere">
+      <label>Propreté de la salle</label>
+      <div class="etoiles">
+        <span *ngFor="let i of [1,2,3,4,5]"
+              class="etoile"
+              [class.active]="i <= noteProprete"
+              (click)="noter('proprete', i)">★</span>
+      </div>
+    </div>
+
+    <div class="critere">
+      <label>Équipement (vidéoprojecteur, écran, visio...)</label>
+      <div class="etoiles">
+        <span *ngFor="let i of [1,2,3,4,5]"
+              class="etoile"
+              [class.active]="i <= noteEquipement"
+              (click)="noter('equipement', i)">★</span>
+      </div>
+    </div>
+
+    <div class="critere">
+      <label>Facilité du processus de réservation</label>
+      <div class="etoiles">
+        <span *ngFor="let i of [1,2,3,4,5]"
+              class="etoile"
+              [class.active]="i <= noteFaciliteReservation"
+              (click)="noter('facilite', i)">★</span>
+      </div>
+    </div>
+
+    <div class="critere">
+      <label>La capacité de la salle était-elle adaptée ?</label>
+      <div class="choix-oui-non">
+        <button type="button"
+                class="btn-choix"
+                [class.selected]="capaciteAdaptee === true"
+                (click)="choisirCapacite(true)">Oui</button>
+        <button type="button"
+                class="btn-choix"
+                [class.selected]="capaciteAdaptee === false"
+                (click)="choisirCapacite(false)">Non</button>
+      </div>
+    </div>
+
+    <div class="critere">
+      <label>Problèmes rencontrés (facultatif)</label>
+      <textarea [(ngModel)]="problemesRencontres" rows="3" placeholder="Décrivez brièvement..."></textarea>
+    </div>
+
+    <div class="critere">
+      <label>Suggestions d'amélioration (facultatif)</label>
+      <textarea [(ngModel)]="suggestionsAmelioration" rows="3" placeholder="Décrivez brièvement..."></textarea>
+    </div>
+
+    <button type="button"
+            class="btn-envoyer"
+            [disabled]="!peutEnvoyer() || etat === 'chargement'"
+            (click)="envoyer()">
+      <span *ngIf="etat !== 'chargement'">Envoyer mon avis</span>
+      <span *ngIf="etat === 'chargement'">Envoi en cours...</span>
+    </button>
+
+  </div>
+
+  <!-- État : succès -->
+  <div *ngIf="etat === 'succes'" class="evaluation-card etat-final">
+    <div class="icone succes">✅</div>
+    <h2>Merci pour votre retour !</h2>
+    <p>Votre avis a bien été enregistré et nous aide à améliorer nos services.</p>
+  </div>
+
+  <!-- État : erreur -->
+  <div *ngIf="etat === 'erreur'" class="evaluation-card etat-final">
+    <div class="icone erreur">❌</div>
+    <h2>Oups, une erreur est survenue</h2>
+    <p>{{ messageErreur }}</p>
+  </div>
+
+</div>

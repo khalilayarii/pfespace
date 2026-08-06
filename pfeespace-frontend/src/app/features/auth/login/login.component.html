@@ -1,0 +1,122 @@
+<div class="page-wrapper">
+
+  <!-- GAUCHE — Formulaire -->
+  <div class="left-side">
+
+    <div class="brand" routerLink="/" style="cursor:pointer">
+      <img src="assets/images/medianet-logo.png" alt="Medianet" class="brand-img"/>
+    </div>
+
+    <div class="form-box">
+
+      <div class="tabs">
+        <span class="tab active">Me connecter</span>
+        <span class="tab" routerLink="/register">Créer un compte</span>
+      </div>
+
+      <h1 class="hero-title">
+        Votre espace<br/>vous <span>attend</span>
+      </h1>
+      <p class="hero-sub">Connectez-vous pour gérer vos réservations</p>
+
+      <div *ngIf="error" class="alert-error">
+        ⚠️ {{ error }}
+      </div>
+
+      <form (ngSubmit)="onLogin()">
+
+        <div class="field">
+          <input type="email"
+                 [(ngModel)]="email"
+                 name="email"
+                 placeholder="E-mail"
+                 required/>
+        </div>
+
+        <div class="field password-field">
+          <input [type]="showPassword ? 'text' : 'password'"
+                 [(ngModel)]="password"
+                 name="password"
+                 placeholder="Mot de passe"
+                 required/>
+          <span class="eye" (click)="togglePassword()">
+            {{ showPassword ? '🙈' : '👁️' }}
+          </span>
+        </div>
+
+        <div class="forgot-row">
+          <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+        </div>
+
+        <button type="submit" class="btn-login" [disabled]="loading">
+          {{ loading ? 'Connexion...' : 'Continuer' }}
+        </button>
+
+        <div class="divider-social">
+          <span>ou continuer avec</span>
+        </div>
+
+        <div class="social-buttons">
+          <div class="btn-google-wrapper">
+            <asl-google-signin-button
+              type="standard"
+              size="large"
+              text="signin_with"
+              shape="rectangular"
+              theme="outline"
+              width="220">
+            </asl-google-signin-button>
+          </div>
+
+          <button class="btn-social btn-facebook" type="button" (click)="loginWithFacebook()">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </button>
+        </div>
+
+      </form>
+
+      <p class="footer-text">© 2025 MediaNet · Startup Village</p>
+
+    </div>
+  </div>
+
+  <!-- DROITE — Slideshow animé -->
+  <div class="right-side">
+
+    <div class="slide slide-1"></div>
+    <div class="slide slide-2"></div>
+    <div class="slide slide-3"></div>
+
+    <div class="overlay"></div>
+
+    <div class="right-content">
+      <div class="tag">STARTUP VILLAGE</div>
+      <h2>Réservez vos<br/>espaces de travail</h2>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-number">10</span>
+          <span class="stat-label">Salles</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">40+</span>
+          <span class="stat-label">Entreprises</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1051</span>
+          <span class="stat-label">Réservations</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-dots">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,320 @@
+<div class="admin-layout">
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">S</div>
+        <div>
+          <div class="brand-name">Startup</div>
+          <div class="brand-sub">Village</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-info">
+      <div class="admin-avatar">AD</div>
+      <div>
+        <div class="admin-name">Admin</div>
+        <span class="admin-badge">ADMIN</span>
+      </div>
+    </div>
+
+    <nav class="menu-section">
+      <div class="menu-group-label">MENU</div>
+      
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      
+      <a routerLink="/admin/reservations" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Réservations</span>
+      </a>
+
+      <a routerLink="/admin/pre-reservations" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>Pré-réservations</span>
+      </a>
+      
+      <a routerLink="/admin/calendrier" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Calendrier</span>
+      </a>
+      
+      <a routerLink="/admin/salles" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Salles</span>
+      </a>
+      
+      <a routerLink="/admin/users" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Utilisateurs</span>
+      </a>
+
+      <!-- ✅ Factures -->
+      <a routerLink="/admin/factures" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span>Factures</span>
+      </a>
+
+      <!-- ✅ Assistant IA -->
+      <a routerLink="/admin/assistant-ia" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Assistant IA Réservation</span>
+      </a>
+
+      <!-- ✅ PowerBI -->
+      <a routerLink="/admin/powerbi" routerLinkActive="active" class="menu-item" (click)="sidebarOpen=false">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span>PowerBI</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="logout" (click)="logout()">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Déconnexion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content" [class.with-panel]="showPanel">
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="btn-today" (click)="today()">Aujourd'hui</button>
+        <button class="nav-btn" (click)="prev()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="nav-btn" (click)="next()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+        <h2 class="titre-nav">{{ titreNavigation }}</h2>
+      </div>
+      <div class="vue-switcher">
+        <button [class.active]="vue === 'jour'" (click)="setVue('jour')">Jour</button>
+        <button [class.active]="vue === 'semaine'" (click)="setVue('semaine')">Semaine</button>
+        <button [class.active]="vue === 'mois'" (click)="setVue('mois')">Mois</button>
+      </div>
+    </div>
+
+    <div class="cal-mois" *ngIf="vue === 'mois'">
+      <div class="cal-weekdays">
+        <div *ngFor="let j of ['LUN','MAR','MER','JEU','VEN','SAM','DIM']">{{ j }}</div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-day"
+             *ngFor="let d of days"
+             [class.empty]="!d.day"
+             [class.today]="d.isToday"
+             [class.has-resa]="d.reservations?.length > 0"
+             [class.selected]="d.date === selectedDate"
+             (click)="selectDay(d)">
+          <span class="day-num" *ngIf="d.day">{{ d.day }}</span>
+          <div class="event-chips">
+            <div class="event-chip" *ngFor="let r of d.reservations?.slice(0,2)">
+              {{ r.salle?.nom }} ({{ r.heureDebut }})
+            </div>
+            <div class="more-chip" *ngIf="d.reservations?.length > 2">
+              +{{ d.reservations.length - 2 }} autres
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-semaine" *ngIf="vue === 'semaine'">
+      <div class="semaine-header">
+        <div class="heure-col"></div>
+        <div class="jour-header"
+             *ngFor="let j of semaineJours"
+             [class.today]="j.isToday"
+             (click)="selectDayFromSemaine(j)">
+          <div class="jour-nom">{{ joursNoms[j.date.getDay()] }}</div>
+          <div class="jour-num" [class.today-num]="j.isToday">{{ j.day }}</div>
+        </div>
+      </div>
+      <div class="semaine-body">
+        <div class="heure-row" *ngFor="let h of heures">
+          <div class="heure-label">{{ h }}:00</div>
+          <div class="jour-cell"
+               *ngFor="let j of semaineJours"
+               [class.today-col]="j.isToday"
+               (click)="selectDayFromSemaine(j)">
+            <div class="event-block" *ngFor="let r of getResaForHour(j, h)">
+              <span class="event-title">{{ r.salle?.nom }}</span>
+              <span class="event-time">{{ r.heureDebut }} - {{ r.heureFin }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-jour" *ngIf="vue === 'jour'">
+      <div class="jour-body">
+        <div class="heure-row" *ngFor="let h of heures">
+          <div class="heure-label">{{ h }}:00</div>
+          <div class="jour-cell-full" (click)="selectedDate = currentDateStr; showPanel = true; nouvelleReservation.date = currentDateStr">
+            <div class="event-block" *ngFor="let r of getResaForHourDay(h)">
+              <span class="event-title">{{ r.salle?.nom }} — {{ r.nomComplet }}</span>
+              <span class="event-time">{{ r.heureDebut }} - {{ r.heureFin }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detail-panel" [class.open]="showPanel">
+    <div class="panel-header">
+      <h3>Réservations du {{ selectedDate }}</h3>
+      <button class="close-btn" (click)="closePanel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="panel-body">
+
+      <button class="btn-nouvelle-resa" (click)="openForm()" *ngIf="!showForm">
+        Nouvelle réservation
+      </button>
+
+      <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+      <div *ngIf="error"   class="alert alert-danger">{{ error }}</div>
+
+      <div class="form-nouvelle-resa" *ngIf="showForm">
+        <h4>Nouvelle Réservation</h4>
+        <div class="form-group">
+          <label>SALLE</label>
+          <select [(ngModel)]="nouvelleReservation.salleId">
+            <option value="">Choisir...</option>
+            <option *ngFor="let s of salles" [value]="s.id">{{ s.nom }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>TYPE</label>
+          <select [(ngModel)]="nouvelleReservation.typeUtilisateur">
+            <option value="">Sélectionnez</option>
+            <option value="VILLEGIATURE">Villégiature</option>
+            <option value="MANAGER">Manager</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>NATURE</label>
+          <select [(ngModel)]="nouvelleReservation.natureManifestation">
+            <option value="">Sélectionnez</option>
+            <option value="EVENEMENT">Événement</option>
+            <option value="REUNION">Réunion</option>
+            <option value="BUREAU">Bureau</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>DÉBUT</label>
+            <input type="time" [(ngModel)]="nouvelleReservation.heureDebut"/>
+          </div>
+          <div class="form-group">
+            <label>FIN</label>
+            <input type="time" [(ngModel)]="nouvelleReservation.heureFin"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>NOM COMPLET</label>
+          <input type="text" [(ngModel)]="nouvelleReservation.nomComplet" placeholder="Nom..."/>
+        </div>
+        <div class="form-group">
+          <label>EMAIL</label>
+          <input type="email" [(ngModel)]="nouvelleReservation.mail" placeholder="email@..."/>
+        </div>
+        <div class="form-group">
+          <label>TÉLÉPHONE</label>
+          <input type="tel" [(ngModel)]="nouvelleReservation.telephone"/>
+        </div>
+        <div class="form-group">
+          <label>SOCIÉTÉ</label>
+          <input type="text" [(ngModel)]="nouvelleReservation.societe"/>
+        </div>
+        <div class="form-actions">
+          <button class="btn-annuler" (click)="closeForm()">Annuler</button>
+          <button class="btn-confirmer" (click)="onSubmitReservation()" [disabled]="loading">
+            {{ loading ? '...' : 'Confirmer' }}
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!showForm">
+        <div *ngIf="selectedReservations.length === 0" class="empty-panel">
+          <p>Aucune réservation ce jour</p>
+        </div>
+        
+        <div class="reservation-card-mini" *ngFor="let r of selectedReservations">
+          <div class="card-top">
+            <span class="card-room">{{ r.salle?.nom }}</span>
+            <span class="badge badge-success">Confirmée</span>
+          </div>
+          <div class="card-body">
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Demandeur</span>
+                <span class="info-value">{{ r.nomComplet }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Horaire</span>
+                <span class="info-value">{{ r.heureDebut }} - {{ r.heureFin }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{ r.mail }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Téléphone</span>
+                <span class="info-value">{{ r.telephone }}</span>
+              </div>
+              <div class="info-item" *ngIf="r.natureManifestation">
+                <span class="info-label">Nature</span>
+                <span class="info-value">{{ r.natureManifestation }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

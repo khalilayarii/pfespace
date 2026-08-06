@@ -1,0 +1,355 @@
+<div class="app-layout">
+
+  <!-- TOP NAVBAR -->
+  <nav class="topnav">
+    <div class="topnav-left">
+      <div class="brand-logo">MEDIANET</div>
+      <div class="brand-sub">Startup Village</div>
+    </div>
+
+    <div class="topnav-center">
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8.5" cy="8.5" r="5.5" stroke="#6b8fa8" stroke-width="1.5"/>
+          <path d="M13 13L17 17" stroke="#6b8fa8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" placeholder="Rechercher une salle..."
+               [(ngModel)]="searchTerm"
+               (ngModelChange)="onSearchInput()"
+               (focus)="onSearchFocus()" />
+        <button class="search-clear" *ngIf="searchTerm" (click)="clearSearch()" title="Effacer">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- RÉSULTATS DE RECHERCHE DYNAMIQUES : salles -->
+      <div class="search-dropdown" *ngIf="searchOpen">
+        <div class="search-dropdown-label">Salles</div>
+
+        <div class="search-empty" *ngIf="searchResults.length === 0">
+          Aucune salle ne correspond à « {{ searchTerm }} »
+        </div>
+
+        <div class="search-result-item"
+             *ngFor="let s of searchResults"
+             (click)="selectSearchResult(s)">
+          <div class="search-result-thumb" [class]="getCoverClass(s)">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="search-result-info">
+            <span class="search-result-name">{{ s.nom }}</span>
+            <span class="search-result-sub">{{ s.equipement || s.description || (s.capacite + ' pers.') }}</span>
+          </div>
+          <span class="search-result-price">{{ s.prix }} DT/h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="topnav-right">
+
+      <!-- ✅ CLOCHE NOTIFICATIONS -->
+      <div class="notif-wrapper">
+        <div class="notif-btn" title="Notifications" (click)="toggleNotifMenu()">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6Z" stroke="#6b8fa8" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M8.5 17a1.5 1.5 0 0 0 3 0" stroke="#6b8fa8" stroke-width="1.4"/>
+          </svg>
+          <span class="notif-badge" *ngIf="notifCount > 0">{{ notifCount > 9 ? '9+' : notifCount }}</span>
+        </div>
+
+        <div class="notif-dropdown" [class.open]="notifMenuOpen">
+          <div class="notif-header">
+            <span>Notifications</span>
+            <span class="notif-mark-all" *ngIf="notifCount > 0" (click)="marquerToutesLues()">
+              Tout marquer comme lu
+            </span>
+          </div>
+
+          <div class="notif-list">
+            <div *ngIf="notifications.length === 0" class="notif-empty">
+              Aucune notification
+            </div>
+
+            <div class="notif-item"
+                 *ngFor="let n of notifications"
+                 [class.unread]="!n.lu"
+                 (click)="onNotificationClick(n)">
+              <div class="notif-dot" *ngIf="!n.lu"></div>
+              <div class="notif-content">
+                <div class="notif-title">{{ n.titre }}</div>
+                <div class="notif-message">{{ n.message }}</div>
+                <div class="notif-time">{{ timeAgo(n.dateCreation) }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-menu" (click)="toggleUserMenu()">
+        <div class="user-avatar">
+          {{ profil?.prenom?.charAt(0) }}{{ profil?.nom?.charAt(0) }}
+        </div>
+        <span class="user-name">{{ profil?.prenom }} {{ profil?.nom }}</span>
+        <span class="chevron">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+        <div class="dropdown" [class.open]="userMenuOpen">
+          <a routerLink="/profil" class="dropdown-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Profil
+          </a>
+          <a routerLink="/salles" class="dropdown-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Salles
+          </a>
+          <a routerLink="/reservations" class="dropdown-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Mes réservations
+          </a>
+          <a routerLink="/change-password" class="dropdown-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Changer mot de passe
+          </a>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item logout-item" (click)="logout()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Déconnexion
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-body">
+
+    <!-- MODALE DE CONFIRMATION D'ANNULATION -->
+    <div class="confirm-overlay" *ngIf="showConfirmModal">
+      <div class="confirm-card">
+        <div class="confirm-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h2>Annuler la réservation ?</h2>
+        <p>Cette action est définitive et ne pourra pas être annulée.</p>
+        <div class="confirm-actions">
+          <button class="btn-confirm-cancel" (click)="closeConfirmModal()" [disabled]="cancelling">
+            Retour
+          </button>
+          <button class="btn-confirm-delete" (click)="confirmerAnnulation()" [disabled]="cancelling">
+            <svg *ngIf="!cancelling" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            {{ cancelling ? 'Annulation...' : 'Oui, annuler' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POPUP DE DÉTAIL D'UNE RÉSERVATION -->
+    <div class="detail-overlay" *ngIf="showDetailModal && selectedReservation" (click)="closeDetail()">
+      <div class="detail-card" (click)="$event.stopPropagation()">
+
+        <button class="detail-close" (click)="closeDetail()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        <div class="detail-cover" [class]="getCoverClass(selectedReservation)"
+             [style.backgroundImage]="getPhotoUrl(selectedReservation) ? 'url(' + getPhotoUrl(selectedReservation) + ')' : null">
+          <span class="detail-status"
+                [class.status-attente]="selectedReservation.statut === 'EN_ATTENTE'"
+                [class.status-confirme]="selectedReservation.statut === 'CONFIRMEE'"
+                [class.status-present]="selectedReservation.statut === 'EN_COURS' || selectedReservation.statut === 'TERMINEE'"
+                [class.status-refuse]="selectedReservation.statut === 'REFUSEE' || selectedReservation.statut === 'NO_SHOW'">
+            <span class="status-dot"></span>
+            {{ selectedReservation.statut === 'EN_ATTENTE' ? 'En attente'
+               : selectedReservation.statut === 'CONFIRMEE' ? 'Confirmée'
+               : (selectedReservation.statut === 'EN_COURS' || selectedReservation.statut === 'TERMINEE') ? 'Présente'
+               : 'Refusée' }}
+          </span>
+          <div class="detail-cover-icon" *ngIf="!getPhotoUrl(selectedReservation)">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+        </div>
+
+        <div class="detail-body">
+          <h2 class="detail-title">{{ selectedReservation.salleNom || selectedReservation.salle?.nom }}</h2>
+
+          <div class="detail-row">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>{{ selectedReservation.date | date:'EEEE d MMMM yyyy' }}</span>
+          </div>
+          <div class="detail-row">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>{{ selectedReservation.heureDebut }} — {{ selectedReservation.heureFin }}</span>
+          </div>
+
+          <div class="detail-divider"></div>
+
+          <div class="detail-client">
+            <div class="booking-client-avatar">{{ selectedReservation.nomComplet?.charAt(0) }}</div>
+            <div class="booking-client-info">
+              <span class="booking-client-name">{{ selectedReservation.nomComplet }}</span>
+              <div class="booking-client-contacts">
+                <span *ngIf="selectedReservation.mail">{{ selectedReservation.mail }}</span>
+                <span *ngIf="selectedReservation.mail && selectedReservation.telephone" class="contact-sep">·</span>
+                <span *ngIf="selectedReservation.telephone">{{ selectedReservation.telephone }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-actions">
+            <button class="btn-detail-close" (click)="closeDetail()">Fermer</button>
+            <button class="btn-annuler" *ngIf="selectedReservation.statut === 'EN_ATTENTE'" (click)="annuler(selectedReservation.id)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              Annuler la réservation
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PROFIL HERO -->
+    <div class="profil-hero" *ngIf="profil">
+      <div class="hero-content">
+        <div class="hero-avatar">
+          {{ profil.prenom?.charAt(0) }}{{ profil.nom?.charAt(0) }}
+        </div>
+        <div class="hero-info">
+          <h1>{{ profil.prenom }} {{ profil.nom }}</h1>
+          <div class="hero-meta">
+            <span class="hero-email">{{ profil.email }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-tabs">
+        <span class="htab" (click)="router.navigate(['/profil'])">Mes informations</span>
+        <span class="htab active">Mes réservations</span>
+        <span class="htab" (click)="router.navigate(['/salles'])">Salles disponibles</span>
+      </div>
+    </div>
+
+    <div class="page-wrapper">
+
+      <div *ngIf="error" class="alert-error">{{ error }}</div>
+
+      <!-- BARRE D'OUTILS GALERIE -->
+      <div class="gallery-toolbar">
+        <div class="gallery-toolbar-left">
+          <button class="btn-filtres" (click)="toggleFilterPanel(); $event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filtres
+            <span class="btn-filtres-count" *ngIf="activeFilterCount() > 0">{{ activeFilterCount() }}</span>
+          </button>
+          <span class="gallery-total">{{ reservationsFiltrees.length }} réservation(s)</span>
+        </div>
+        <button class="btn-primary-outline" (click)="router.navigate(['/salles'])">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Réserver une salle
+        </button>
+
+        <!-- PANNEAU DE FILTRES -->
+        <div class="filter-panel" *ngIf="showFilterPanel" (click)="$event.stopPropagation()">
+          <div class="filter-panel-section">
+            <span class="filter-panel-label">Statut</span>
+            <div class="pill-group">
+              <button class="pill" [class.pill-active]="activeTab === 'TOUS'" (click)="setTab('TOUS')">
+                Toutes
+                <span class="pill-count">{{ reservations.length }}</span>
+              </button>
+              <button class="pill" [class.pill-active]="activeTab === 'EN_ATTENTE'" (click)="setTab('EN_ATTENTE')">
+                <span class="pill-dot dot-attente"></span>
+                En attente
+                <span class="pill-count">{{ countByStatut('EN_ATTENTE') }}</span>
+              </button>
+              <button class="pill" [class.pill-active]="activeTab === 'CONFIRMEE'" (click)="setTab('CONFIRMEE')">
+                <span class="pill-dot dot-confirme"></span>
+                Confirmées
+                <span class="pill-count">{{ countByStatut('CONFIRMEE') }}</span>
+              </button>
+              <button class="pill" [class.pill-active]="activeTab === 'REFUSEE'" (click)="setTab('REFUSEE')">
+                <span class="pill-dot dot-refuse"></span>
+                Refusées
+                <span class="pill-count">{{ countByStatut('REFUSEE') }}</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-panel-section">
+            <span class="filter-panel-label">Période</span>
+            <div class="date-range-picker">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <input type="date" [(ngModel)]="filterDateDebut" (change)="applyFilters()" />
+              <span class="date-range-sep">→</span>
+              <input type="date" [(ngModel)]="filterDateFin" (change)="applyFilters()" />
+              <button class="date-range-clear" *ngIf="filterDateDebut || filterDateFin" (click)="resetDateFilter()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <button class="filter-panel-reset" *ngIf="activeFilterCount() > 0" (click)="resetAllFilters()">
+            Réinitialiser tous les filtres
+          </button>
+        </div>
+      </div>
+
+      <!-- EMPTY -->
+      <div class="empty-state" *ngIf="reservationsFiltrees.length === 0">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <p>Aucune réservation trouvée</p>
+        <button class="btn-primary" (click)="router.navigate(['/salles'])">Réserver une salle</button>
+      </div>
+
+      <!-- GALERIE DE CARTES -->
+      <div class="gallery-grid" *ngIf="reservationsFiltrees.length > 0">
+        <div class="gallery-card" *ngFor="let r of reservationsFiltrees" (click)="openDetail(r)">
+
+          <div class="gallery-cover" [class]="getCoverClass(r)"
+               [style.backgroundImage]="getPhotoUrl(r) ? 'url(' + getPhotoUrl(r) + ')' : null">
+            <span class="gallery-date-chip">
+              <span class="chip-day">{{ r.date | date:'dd' }}</span>
+              <span class="chip-month">{{ r.date | date:'MMM' }}</span>
+            </span>
+            <span class="gallery-status"
+                  [class.status-attente]="r.statut === 'EN_ATTENTE'"
+                  [class.status-confirme]="r.statut === 'CONFIRMEE'"
+                  [class.status-present]="r.statut === 'EN_COURS' || r.statut === 'TERMINEE'"
+                  [class.status-refuse]="r.statut === 'REFUSEE' || r.statut === 'NO_SHOW'">
+              <span class="status-dot"></span>
+              {{ r.statut === 'EN_ATTENTE' ? 'En attente'
+                 : r.statut === 'CONFIRMEE' ? 'Confirmée'
+                 : (r.statut === 'EN_COURS' || r.statut === 'TERMINEE') ? 'Présente'
+                 : 'Refusée' }}
+            </span>
+            <div class="gallery-cover-icon" *ngIf="!getPhotoUrl(r)">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+          </div>
+
+          <div class="gallery-content">
+            <h3 class="gallery-title">{{ r.salleNom || r.salle?.nom }}</h3>
+            <div class="gallery-divider"></div>
+            <div class="gallery-meta">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {{ r.heureDebut }} — {{ r.heureFin }}
+            </div>
+            <div class="gallery-meta">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              {{ r.nomComplet }}
+            </div>
+            <span class="gallery-open-hint">
+              Voir les détails
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

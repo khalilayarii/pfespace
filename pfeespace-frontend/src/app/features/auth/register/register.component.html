@@ -1,0 +1,103 @@
+<div class="page-wrapper">
+
+  <!-- GAUCHE — Formulaire -->
+  <div class="left-side">
+
+    <div class="brand" routerLink="/" style="cursor:pointer">
+  <img src="assets/images/medianet-logo.png" alt="Medianet" class="brand-img"/>
+</div>
+
+    <div class="tabs">
+      <span class="tab" routerLink="/login">Me connecter</span>
+      <span class="tab active">Créer un compte</span>
+    </div>
+
+    <h1 class="hero-title">
+      Rejoignez<br/><span>l'écosystème</span>
+    </h1>
+    <p class="hero-sub">Créez votre compte et accédez à tous nos espaces</p>
+
+    <div *ngIf="error" class="alert-error">⚠️ {{ error }}</div>
+    <div *ngIf="success" class="alert-success">✅ {{ success }}</div>
+
+    <form (ngSubmit)="onRegister()">
+
+      <div class="fields-row">
+        <div class="field">
+          <input type="text" [(ngModel)]="nom"
+                 name="nom" placeholder="Nom" required/>
+        </div>
+        <div class="field">
+          <input type="text" [(ngModel)]="prenom"
+                 name="prenom" placeholder="Prénom" required/>
+        </div>
+      </div>
+
+      <div class="field">
+        <input type="email" [(ngModel)]="email"
+               name="email" placeholder="E-mail" required/>
+      </div>
+
+      <div class="field">
+        <input type="tel" [(ngModel)]="telephone"
+               name="telephone" placeholder="Téléphone (Ex: 20000000)" required/>
+      </div>
+
+      <div class="fields-row">
+        <div class="field password-field">
+          <input [type]="showPassword ? 'text' : 'password'"
+                 [(ngModel)]="mdp" name="mdp"
+                 placeholder="Mot de passe" required/>
+          <span class="eye" (click)="togglePassword()">
+            {{ showPassword ? '🙈' : '👁️' }}
+          </span>
+        </div>
+        <div class="field password-field">
+          <input [type]="showConfirm ? 'text' : 'password'"
+                 [(ngModel)]="confirmMdp" name="confirmMdp"
+                 placeholder="Confirmer" required/>
+          <span class="eye" (click)="toggleConfirm()">
+            {{ showConfirm ? '🙈' : '👁️' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" [(ngModel)]="acceptTerms"
+               name="terms" id="terms"/>
+        <label for="terms">J'accepte les termes et conditions</label>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="loading">
+        {{ loading ? 'Inscription...' : 'Créer mon compte →' }}
+      </button>
+
+    </form>
+
+    <p class="footer-text">© 2025 MediaNet · Startup Village</p>
+  </div>
+
+  <!-- DROITE — Image -->
+  <div class="right-side">
+    <div class="overlay"></div>
+    <div class="right-content">
+      <div class="tag">STARTUP VILLAGE</div>
+      <h2>Votre espace<br/>de travail idéal</h2>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-number">10</span>
+          <span class="stat-label">Salles</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">40+</span>
+          <span class="stat-label">Entreprises</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1051</span>
+          <span class="stat-label">Réservations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

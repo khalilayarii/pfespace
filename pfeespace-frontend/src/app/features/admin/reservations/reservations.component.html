@@ -1,0 +1,260 @@
+<div class="admin-layout">
+
+  <!-- BARRE LATÉRALE (SIDEBAR) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">S</div>
+        <div>
+          <div class="brand-name">Startup</div>
+          <div class="brand-sub">Village</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-info">
+      <div class="admin-avatar">AD</div>
+      <div class="admin-details">
+        <div class="admin-name">{{ profil?.nom || 'Admin' }}</div>
+        <span class="admin-badge">ADMIN</span>
+      </div>
+    </div>
+
+    <nav class="menu-section">
+      <div class="menu-group-label">MENU PRINCIPAL</div>
+
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+
+      <a routerLink="/admin/reservations" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Réservations</span>
+      </a>
+
+      <a routerLink="/admin/pre-reservations" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>Pré-réservations</span>
+      </a>
+
+      <a routerLink="/admin/calendrier" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Calendrier</span>
+      </a>
+
+      <a routerLink="/admin/salles" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Salles</span>
+      </a>
+
+      <a routerLink="/admin/users" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Utilisateurs</span>
+      </a>
+
+      <a routerLink="/admin/factures" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <span>Factures</span>
+      </a>
+
+      <a routerLink="/admin/assistant-ia" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Assistant IA</span>
+      </a>
+
+      <!-- ✅ PowerBI -->
+      <a routerLink="/admin/powerbi" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span>PowerBI</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="logout" (click)="logout()">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Déconnexion</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="main-content">
+
+    <!-- MESSAGE DE NOTIFICATION / ALERTE -->
+    <div *ngIf="message" [class]="'alert alert-' + messageType">
+      <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>{{ message }}</span>
+    </div>
+
+    <!-- EN-TÊTE DE LA PAGE -->
+    <header class="page-header">
+      <div>
+        <h1 class="page-title">{{ hideTabs ? 'Pré-réservations' : 'Gestion des Réservations' }}</h1>
+        <p class="page-sub">{{ hideTabs ? 'Demandes à traiter en priorité' : 'Gérez et validez les demandes de réservation reçues' }}</p>
+      </div>
+    </header>
+
+    <!-- FILTRES DE STATUT -->
+    <div class="filter-tabs" *ngIf="!hideTabs">
+      <a class="filter-tab" [routerLink]="['/admin/reservations']" [queryParams]="{}" [class.active]="statut === 'TOUS'">Toutes</a>
+      <a class="filter-tab" [routerLink]="['/admin/reservations']" [queryParams]="{ statut: 'EN_ATTENTE' }" [class.active]="statut === 'EN_ATTENTE'">En attente</a>
+      <a class="filter-tab" [routerLink]="['/admin/reservations']" [queryParams]="{ statut: 'CONFIRMEE' }" [class.active]="statut === 'CONFIRMEE'">Confirmées</a>
+      <a class="filter-tab" [routerLink]="['/admin/reservations']" [queryParams]="{ statut: 'REFUSEE' }" [class.active]="statut === 'REFUSEE'">Refusées</a>
+    </div>
+
+    <!-- INDICATEUR DE CHARGEMENT -->
+    <div class="loading" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <span>Chargement des réservations...</span>
+    </div>
+
+    <!-- LISTE DES RÉSERVATIONS -->
+    <div class="reservations-feed" *ngIf="!loading">
+
+      <!-- ÉTAT VIDE -->
+      <div class="empty" *ngIf="reservations.length === 0">
+        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <p>Aucune réservation 
+          {{ statut === 'EN_ATTENTE' ? 'en attente' : statut === 'CONFIRMEE' ? 'confirmée' : statut === 'REFUSEE' ? 'refusée' : '' }} 
+          trouvée.
+        </p>
+      </div>
+
+      <!-- CARTE RÉSERVATION -->
+      <article class="reservation-row" *ngFor="let r of reservations">
+        
+        <!-- 1. BLOC IMAGE DE LA SALLE CORRIGÉ -->
+        <div class="room-media">
+          <img 
+            [src]="getSalleImage(r.salle)" 
+            [alt]="r.salle?.nom || 'Image Salle'" 
+            (error)="onImgError($event)" 
+          />
+          
+          <span class="capacity-badge" *ngIf="r.salle?.capacite">
+            {{ r.salle?.capacite }} pers.
+          </span>
+        </div>
+
+        <!-- 2. DÉTAILS DE LA RÉSERVATION -->
+        <div class="room-details">
+          <div class="details-header">
+            <div>
+              <h3 class="room-name">{{ r.salle?.nom || 'Salle sans nom' }}</h3>
+              <div class="client-info">
+                <span class="info-label">Demandeur :</span>
+                <span class="client-name">{{ r.nomComplet || 'Non renseigné' }}</span>
+              </div>
+            </div>
+
+            <!-- BADGE STATUT -->
+            <span class="status-badge" [ngClass]="{
+              'status-success': r.statut === 'CONFIRMEE',
+              'status-danger':  r.statut === 'REFUSEE',
+              'status-warning': r.statut === 'EN_ATTENTE'
+            }">
+              <span class="dot"></span>
+              {{ r.statut === 'CONFIRMEE' ? 'Confirmée' : r.statut === 'REFUSEE' ? 'Refusée' : 'En attente' }}
+            </span>
+          </div>
+
+          <!-- DATES & HORAIRES -->
+          <div class="booking-time">
+            <div class="time-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>{{ r.date | date:'dd/MM/yyyy' }}</span>
+            </div>
+
+            <div class="time-box highlight-time">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>{{ r.heureDebut }} - {{ r.heureFin }}</span>
+            </div>
+          </div>
+
+          <!-- DESCRIPTION / MOTIF -->
+          <div class="description-tag" *ngIf="r.description">
+            <strong>Motif :</strong> {{ r.description }}
+          </div>
+        </div>
+
+        <!-- 3. ACTIONS RAPIDES -->
+        <div class="room-actions" *ngIf="r.statut === 'EN_ATTENTE'">
+          <button class="btn btn-confirm" (click)="confirmer(r.id!)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Confirmer
+          </button>
+
+          <button class="btn btn-hold" (click)="attente(r.id!)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            En attente
+          </button>
+
+          <button class="btn btn-decline" (click)="refuser(r.id!)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+            </svg>
+            Refuser
+          </button>
+        </div>
+
+      </article>
+
+    </div>
+  </main>
+</div>

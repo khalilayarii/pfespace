@@ -1,0 +1,250 @@
+<div class="admin-layout">
+
+  <!-- Sidebar identique à vos autres pages -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">S</div>
+        <div>
+          <div class="brand-name">Startup</div>
+          <div class="brand-sub">Village</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-info">
+      <div class="admin-avatar">AD</div>
+      <div>
+        <div class="admin-name">Admin</div>
+        <span class="admin-badge">ADMIN</span>
+      </div>
+    </div>
+
+    <nav class="menu-section">
+      <div class="menu-group-label">MENU</div>
+
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+
+      <a routerLink="/admin/reservations" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Réservations</span>
+      </a>
+
+      <a routerLink="/admin/calendrier" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Calendrier</span>
+      </a>
+
+      <a routerLink="/admin/salles" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Salles</span>
+      </a>
+
+      <a routerLink="/admin/users" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+        </svg>
+        <span>Utilisateurs</span>
+      </a>
+
+      <!-- Lien Entreprises actif -->
+      <a routerLink="/admin/entreprises" routerLinkActive="active" class="menu-item">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <rect x="9" y="14" width="6" height="7"/>
+          <line x1="9" y1="14" x2="15" y2="14"/>
+        </svg>
+        <span>Entreprises</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="logout" (click)="logout()">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Déconnexion</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenu principal -->
+  <div class="main-content">
+
+    <!-- Message -->
+    <div *ngIf="message" [class]="'alert alert-' + messageType">
+      <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>{{ message }}</span>
+    </div>
+
+    <!-- Header -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Gestion des Entreprises</h1>
+        <p class="page-sub">Gérez les entreprises membres et externes de Startup Village</p>
+      </div>
+      <button class="btn-action btn-success" (click)="openAdd()">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Ajouter une entreprise
+      </button>
+    </div>
+
+    <!-- Formulaire ajout/modification -->
+    <div class="reservation-card" *ngIf="showForm">
+      <div class="card-top">
+        <div class="card-title-row">
+          <span class="card-room">{{ isEditing ? 'Modifier' : 'Ajouter' }} une entreprise</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="info-grid">
+
+          <div class="info-item">
+            <span class="info-label">Nom *</span>
+            <input class="form-input" [(ngModel)]="form.nom" placeholder="Nom entreprise" />
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Numéro Fiscal *</span>
+            <input class="form-input" [(ngModel)]="form.numFiscal" placeholder="1234567/A/M/000" />
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Email</span>
+            <input class="form-input" [(ngModel)]="form.email" placeholder="email@entreprise.com" />
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Téléphone</span>
+            <input class="form-input" [(ngModel)]="form.telephone" placeholder="71000000" />
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Adresse</span>
+            <input class="form-input" [(ngModel)]="form.adresse" placeholder="Adresse complète" />
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Statut membre</span>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="form.estMembre" />
+              Membre Startup Village (Réservation gratuite)
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn-action btn-warning" (click)="cancel()">Annuler</button>
+        <button class="btn-action btn-success" (click)="save()" [disabled]="loading">
+          {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading && !showForm">
+      <div class="loading-spinner"></div>
+      <span>Chargement des entreprises...</span>
+    </div>
+
+    <!-- Liste entreprises -->
+    <div class="reservations-list" *ngIf="!loading || showForm">
+
+      <div class="empty" *ngIf="entreprises.length === 0 && !showForm">
+        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        </svg>
+        <p>Aucune entreprise enregistrée</p>
+      </div>
+
+      <div class="reservation-card" *ngFor="let e of entreprises">
+
+        <div class="card-top">
+          <div class="card-title-row">
+            <span class="card-room">{{ e.nom }}</span>
+            <span class="badge" [ngClass]="e.estMembre ? 'badge-success' : 'badge-warning'">
+              <span class="status-indicator"></span>
+              {{ e.estMembre ? 'Membre' : 'Externe' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="info-grid">
+
+            <div class="info-item">
+              <span class="info-label">Numéro Fiscal</span>
+              <span class="info-value">{{ e.numFiscal }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Email</span>
+              <span class="info-value">{{ e.email || '—' }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Téléphone</span>
+              <span class="info-value">{{ e.telephone || '—' }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Adresse</span>
+              <span class="info-value">{{ e.adresse || '—' }}</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-action btn-warning" (click)="openEdit(e)">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            Modifier
+          </button>
+
+          <button class="btn-action btn-danger" (click)="delete(e.id!)">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+              <path d="M10 11v6"/><path d="M14 11v6"/>
+            </svg>
+            Supprimer
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
